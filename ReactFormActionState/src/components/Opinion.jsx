@@ -18,6 +18,8 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
     await downvoteOpinion(id);
   }
 
+  // a way of temporarily setting a value until an action is completed
+  // it will roll back if the action fails
   const [upvoteFormState, upvoteFormAction, upvotePending] = useActionState(upVoteAction);
   const [downvoteFormState, downvoteFormAction, downvotePending] = useActionState(downVoteAction);
 
@@ -29,6 +31,7 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
       </header>
       <p>{body}</p>
       <form className="votes">
+        {/* formAction can be used on other elements other than the form element */}
         <button formAction={upvoteFormAction} disabled={upvotePending || downvotePending}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
